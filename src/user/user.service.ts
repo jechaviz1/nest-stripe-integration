@@ -33,7 +33,7 @@ export class UserService {
       .exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number): Promise<UserDocument> {
+    return this.userModel.findByIdAndRemove(id);
   }
 }
