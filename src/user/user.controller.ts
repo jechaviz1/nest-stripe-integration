@@ -32,21 +32,21 @@ export class UserController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const user = await this.userService.findOne(+id);
+    const user = await this.userService.findById(id);
 
     return new ReturnUserDto(user);
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    const updatedUser = await this.userService.update(+id, updateUserDto);
+    const updatedUser = await this.userService.update(id, updateUserDto);
 
     return new ReturnUserDto(updatedUser);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    const deletedUser = await this.userService.remove(+id);
+    const deletedUser = await this.userService.remove(id);
 
     return new ReturnUserDto(deletedUser);
   }
