@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schemas/user.schema';
 import { AuthService } from '../auth/auth.service';
+import { ConflictException } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,11 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserDocument> {
+    await Promise.all([
+      this.assertUniqueEmail(createUserDto.email),
+      this.assertUniqueUsername(createUserDto.userName),
+    ]);
+
     const { hash, salt } = this.authService.hashPassword(
       createUserDto.password,
     );
@@ -46,6 +52,20 @@ export class UserService {
     _id: string,
     updateUserDto: UpdateUserDto,
   ): Promise<UserDocument> {
+    const existingUser = await this.userModel.findById(_id);
+
+    const checks = [];
+
+    if (existingUser.email !== updateUserDto.email) {
+      checks.push(this.assertUniqueEmail(updateUserDto.email));
+    }
+
+    if (existingUser.userName !== updateUserDto.userName) {
+      checks.push(this.assertUniqueUsername(updateUserDto.userName));
+    }
+
+    await Promise.all(checks);
+
     return this.userModel.findByIdAndUpdate(_id, updateUserDto, {
       new: true,
     });
@@ -53,5 +73,21 @@ export class UserService {
 
   async remove(_id: string): Promise<UserDocument> {
     return this.userModel.findByIdAndRemove(_id);
+  }
+
+  async assertUniqueEmail(email: string): Promise<void> {
+    const user = await this.userModel.findOne({ email });
+
+    if (user) {
+      throw new ConflictException('Email already exists');
+    }
+  }
+
+  async assertUniqueUsername(userName: string): Promise<void> {
+    const user = await this.userModel.findOne({ userName });
+
+    if (user) {
+      throw new ConflictException('Username already exists');
+    }
   }
 }

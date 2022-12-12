@@ -2,13 +2,22 @@ import { ApiProperty } from '@nestjs/swagger';
 import { UserDocument } from '../schemas/user.schema';
 
 export class ReturnUserDto {
-  @ApiProperty()
+  @ApiProperty({
+    example: '5f9f1c9b9c9c9c9c9c9c9c9c',
+    description: `The user's id in Mongodb.`,
+  })
   userId: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'Alan Turing',
+    description: `The user's name.`,
+  })
   userName: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'aturing@gmail.com',
+    description: `The user's email address.`,
+  })
   email: string;
 
   constructor(user: UserDocument) {
