@@ -4,17 +4,17 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schemas/user.schema';
-import { PasswordUtil } from '../util/password.util';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-    private readonly passwordUtil: PasswordUtil,
+    private readonly authService: AuthService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserDocument> {
-    const { hash, salt } = this.passwordUtil.hashPassword(
+    const { hash, salt } = this.authService.hashPassword(
       createUserDto.password,
     );
 

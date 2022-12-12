@@ -7,4 +7,5 @@ export const passwordConstants = {
 
 export const jwtConstants = {
   secret: 'supersecret',
+  expiresIn: '2h',
 };

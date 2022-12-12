@@ -9,7 +9,7 @@ async function bootstrap() {
     .setTitle('User API')
     .setDescription('The User API is used to managing payments')
     .setVersion('1.0')
-    .addTag('cats')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
