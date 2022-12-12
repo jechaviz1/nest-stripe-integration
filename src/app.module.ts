@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { PaymentModule } from './payment/payment.module';
 
 // TODO use db con string from env
 @Module({
@@ -9,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
     MongooseModule.forRoot('mongodb://localhost/nest'),
     UserModule,
     AuthModule,
+    PaymentModule,
   ],
 })
 export class AppModule {}
