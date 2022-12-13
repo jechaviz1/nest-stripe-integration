@@ -20,9 +20,18 @@ export class ReturnUserDto {
   })
   email: string;
 
+  @ApiProperty({
+    example: 'cus_1234567890',
+    description:
+      `The user's Stripe customer id. Users without transactions ` +
+      `do not have a customer id.`,
+  })
+  customerId: string | null;
+
   constructor(user: UserDocument) {
     this.userId = user._id.toString();
     this.userName = user.userName;
     this.email = user.email;
+    this.customerId = user.customerId || null;
   }
 }

@@ -87,11 +87,4 @@ export class UserController {
   login(@Request() req) {
     return this.authService.login(req.user);
   }
-
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @Get('/profile')
-  getProfile(@Request() req) {
-    return new ReturnUserDto(req.user);
-  }
 }
