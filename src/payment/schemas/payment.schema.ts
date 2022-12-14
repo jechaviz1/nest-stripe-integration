@@ -7,6 +7,7 @@ export type PaymentDocument = HydratedDocument<Payment>;
 export class Payment {
   @Prop({
     required: true,
+    index: true,
   })
   id: string;
 
@@ -40,10 +41,8 @@ export class Payment {
   })
   status: string;
 
-  @Prop({
-    required: true,
-  })
-  payment_method: string;
+  @Prop()
+  payment_method_id: string;
 }
 
 export const PaymentSchema = SchemaFactory.createForClass(Payment);

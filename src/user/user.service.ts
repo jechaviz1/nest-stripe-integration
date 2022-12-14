@@ -6,6 +6,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schemas/user.schema';
 import { AuthService } from '../auth/auth.service';
 import { ConflictException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
@@ -24,35 +25,35 @@ export class UserService {
       createUserDto.password,
     );
 
-    const createdUser = new this.userModel({
+    const createdUser = await this.userModel.create({
       userName: createUserDto.userName,
       email: createUserDto.email,
       hash,
       salt,
     });
 
-    return createdUser.save();
+    return createdUser;
   }
 
   async findAll(): Promise<UserDocument[]> {
-    return this.userModel.find().exec();
+    return this.userModel.find();
   }
 
   async findById(_id: string): Promise<UserDocument> {
-    return this.userModel.findById(_id);
-  }
+    const user = await this.userModel.findOne({ _id });
 
-  async findByEmail(email: string): Promise<UserDocument> {
-    return this.userModel.findOne({
-      email,
-    });
+    if (!user) {
+      throw new NotFoundException(`User with _id ${_id} not found.`);
+    }
+
+    return user;
   }
 
   async update(
     _id: string,
     updateUserDto: UpdateUserDto,
   ): Promise<UserDocument> {
-    const existingUser = await this.userModel.findById(_id);
+    const existingUser = await this.userModel.findOne({ _id });
 
     const checks = [];
 
@@ -72,14 +73,14 @@ export class UserService {
   }
 
   async remove(_id: string): Promise<UserDocument> {
-    return this.userModel.findByIdAndRemove(_id);
+    return this.userModel.findOneAndRemove({ _id });
   }
 
   async assertUniqueEmail(email: string): Promise<void> {
     const user = await this.userModel.findOne({ email });
 
     if (user) {
-      throw new ConflictException('Email already exists');
+      throw new ConflictException('Email already exists.');
     }
   }
 
@@ -87,7 +88,7 @@ export class UserService {
     const user = await this.userModel.findOne({ userName });
 
     if (user) {
-      throw new ConflictException('Username already exists');
+      throw new ConflictException('Username already exists.');
     }
   }
 }

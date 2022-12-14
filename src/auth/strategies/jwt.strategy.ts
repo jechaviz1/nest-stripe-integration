@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from '../../user/schemas/user.schema';
 import { ReturnUserDto } from '../../user/dto/return-user.dto';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -18,7 +19,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    const user = await this.userModel.findById(payload.sub);
-    return new ReturnUserDto(user);
+    try {
+      const user = await this.userModel.findById(payload.sub);
+
+      return new ReturnUserDto(user);
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
   }
 }

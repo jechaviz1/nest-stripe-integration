@@ -8,7 +8,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CreatePaymentDto } from './dto/create-payment.dto';
+import { ConfirmPaymentDto } from './dto/confirm-payment.dto';
 import { ReturnPaymentDto } from './dto/return-payment.dto';
+import { PaymentCreatedDto } from './dto/payment-created.dto';
 import { PaymentService } from './payment.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -32,7 +34,7 @@ export class PaymentController {
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  async getPayment(@Request() req, @Param() id: string) {
+  async getPayment(@Request() req, @Param('id') id: string) {
     const { customerId } = req.user;
 
     const payment = await this.paymentService.findCustomerPayment(
@@ -50,11 +52,26 @@ export class PaymentController {
     @Request() req,
     @Body() createPaymentIntentDto: CreatePaymentDto,
   ) {
-    const madePayment = await this.paymentService.createPayment(
+    const createdPayment = await this.paymentService.createPayment(
       req.user,
       createPaymentIntentDto,
     );
 
-    return new ReturnPaymentDto(madePayment);
+    return new PaymentCreatedDto(createdPayment);
+  }
+
+  @Post('/confirm')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  async confirmPayment(
+    @Request() req,
+    @Body() confirmPaymentDto: ConfirmPaymentDto,
+  ) {
+    const confirmedPayment = await this.paymentService.confirmPayment(
+      req.user,
+      confirmPaymentDto,
+    );
+
+    return new ReturnPaymentDto(confirmedPayment);
   }
 }

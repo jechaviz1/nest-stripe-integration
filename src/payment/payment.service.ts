@@ -1,11 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreatePaymentDto } from './dto/create-payment.dto';
+import { ConfirmPaymentDto } from './dto/confirm-payment.dto';
 import { ReturnUserDto } from '../user/dto/return-user.dto';
 import { Payment, PaymentDocument } from './schemas/payment.schema';
 import { StripeService } from '../stripe/stripe.service';
-import { UserService } from '../user/user.service';
 
 @Injectable()
 export class PaymentService {
@@ -13,46 +17,83 @@ export class PaymentService {
     @InjectModel(Payment.name)
     private readonly paymentModel: Model<PaymentDocument>,
     private readonly stripeService: StripeService,
-    private readonly userService: UserService,
   ) {}
 
   async createPayment(user: ReturnUserDto, createPaymentDto: CreatePaymentDto) {
-    if (user.customerId === null) {
-      const customer = await this.stripeService.createCustomer(
-        user.email,
-        user.userName,
-      );
-
-      user.customerId = customer.id;
-
-      await this.userService.update(user.userId, {
-        email: user.email,
-        userName: user.userName,
-        customerId: user.customerId,
-      });
+    if (!user.customerId) {
+      throw new NotFoundException('Customer not found.');
     }
 
-    const createdPayment = await this.stripeService.createPayment(
+    const stripePayment = await this.stripeService.createPayment(
       user.customerId,
-      createPaymentDto,
     );
 
-    return createdPayment;
+    await this.paymentModel.create({
+      id: stripePayment.id,
+      amount: stripePayment.amount,
+      currency: stripePayment.currency,
+      cuid: createPaymentDto.cuid,
+      customer_id: user.customerId,
+      user_id: user.userId,
+      status: stripePayment.status,
+      payment_method_id: stripePayment.payment_method,
+    });
+
+    return stripePayment;
   }
 
-  async findCustomerPayments(customerId: string | undefined) {
-    if (customerId) {
-      return await this.stripeService.findCustomerPayments(customerId);
-    }
+  async confirmPayment(
+    user: ReturnUserDto,
+    confirmPaymentDto: ConfirmPaymentDto,
+  ) {
+    await this.assertUserOwnsPayment(user, confirmPaymentDto.paymentId);
 
-    return [];
+    const payment = await this.stripeService.confirmPayment(
+      confirmPaymentDto.paymentId,
+      confirmPaymentDto.paymentMethodId,
+    );
+
+    await this.paymentModel.findOneAndUpdate(
+      { id: payment.id },
+      { status: payment.status },
+    );
+
+    return payment;
   }
 
-  async findCustomerPayment(customerId: string | undefined, paymentId: string) {
-    if (customerId) {
-      await this.stripeService.findCustomerPayment(customerId, paymentId);
+  async findCustomerPayments(customerId: string) {
+    if (!customerId) {
+      throw new NotFoundException('Customer not found.');
     }
 
-    return null;
+    return this.stripeService.findCustomerPayments(customerId);
+  }
+
+  async findCustomerPayment(customerId: string, paymentId: string) {
+    if (!customerId) {
+      throw new NotFoundException('Customer not found.');
+    }
+
+    const payment = await this.stripeService.findCustomerPayment(
+      customerId,
+      paymentId,
+    );
+
+    if (!payment) {
+      throw new NotFoundException('Payment not found.');
+    }
+
+    return payment;
+  }
+
+  async assertUserOwnsPayment(user: ReturnUserDto, paymentId: string) {
+    const payment = await this.paymentModel.findOne({
+      _id: paymentId,
+      user_id: user.userId,
+    });
+
+    if (!payment) {
+      throw new ForbiddenException();
+    }
   }
 }

@@ -28,7 +28,7 @@ export class ReturnPaymentDto {
   readonly status: string;
 
   @ApiProperty({
-    example: 'pm_visa_card',
+    example: 'pm_1H7jg1CZ6F7J6I8jW2Q2c2jG',
     description: 'Stripe payment method',
   })
   readonly paymentMethod: string;

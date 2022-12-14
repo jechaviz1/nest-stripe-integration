@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import Stripe from 'stripe';
-import { CreatePaymentDto } from '../payment/dto/create-payment.dto';
+import { paymentConfig } from './constants';
 
 @Injectable()
 export class StripeService {
@@ -16,13 +16,20 @@ export class StripeService {
     return this.client.customers.create({ email, name: userName });
   }
 
-  async createPayment(customerId: string, createPayment: CreatePaymentDto) {
+  async createPayment(customerId: string) {
     return this.client.paymentIntents.create({
       customer: customerId,
-      amount: createPayment.amount,
-      currency: createPayment.currency,
-      payment_method: createPayment.paymentMethodId,
-      confirm: true,
+      amount: paymentConfig.amount,
+      currency: paymentConfig.currency,
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+  }
+
+  async confirmPayment(paymentId: string, paymentMethodId: string) {
+    return this.client.paymentIntents.confirm(paymentId, {
+      payment_method: paymentMethodId,
     });
   }
 
@@ -35,27 +42,7 @@ export class StripeService {
     return (
       await this.client.paymentIntents.list({ customer: customerId })
     ).data.filter((p) => {
-      p.id === paymentId;
-    });
-  }
-
-  async parsePaymentWebhook(signature: string, body: any) {
-    let event;
-
-    try {
-      event = this.client.webhooks.constructEvent(
-        body,
-        signature,
-        process.env.STRIPE_WEBHOOK_SECRET,
-      );
-    } catch (err) {
-      console.log(err);
-    }
-
-    if (event?.type === 'payment_intent.succeeded') {
-      return event.data.object;
-    } else {
-      return null;
-    }
+      return p.id === paymentId;
+    })[0];
   }
 }
