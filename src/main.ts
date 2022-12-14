@@ -10,7 +10,12 @@ async function bootstrap() {
     .setTitle('Nest Payments')
     .setDescription('An API for customers and payments with Stripe.')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth({
+      type: 'http',
+      description:
+        'An http bearer auth token is required for all secured routes. An ' +
+        'auth grant can be obtained from `/user/login` and `/user/register`',
+    })
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

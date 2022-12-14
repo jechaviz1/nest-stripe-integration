@@ -16,7 +16,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('payment')
-@ApiTags('payment')
+@ApiTags('Payment')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 

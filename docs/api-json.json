@@ -1,0 +1,518 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/user": {
+      "post": {
+        "operationId": "UserController_create",
+        "summary": "",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReturnUserDto" }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [{ "bearer": [] }]
+      },
+      "get": {
+        "operationId": "UserController_findAll",
+        "summary": "",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ReturnUserDto" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "operationId": "UserController_findOne",
+        "summary": "",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReturnUserDto" }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [{ "bearer": [] }]
+      },
+      "patch": {
+        "operationId": "UserController_update",
+        "summary": "",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReturnUserDto" }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [{ "bearer": [] }]
+      },
+      "delete": {
+        "operationId": "UserController_remove",
+        "summary": "",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReturnUserDto" }
+              }
+            }
+          }
+        },
+        "tags": ["User"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/user/register": {
+      "post": {
+        "operationId": "UserController_register",
+        "summary": "",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AuthGrantDto" }
+              }
+            }
+          }
+        },
+        "tags": ["User"]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "operationId": "UserController_login",
+        "summary": "",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AuthGrantDto" }
+              }
+            }
+          }
+        },
+        "tags": ["User"]
+      }
+    },
+    "/payment": {
+      "get": {
+        "operationId": "PaymentController_getPayments",
+        "summary": "",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ReturnPaymentDto" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Payment"],
+        "security": [{ "bearer": [] }]
+      },
+      "post": {
+        "operationId": "PaymentController_createPayment",
+        "summary": "",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreatePaymentDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PaymentCreatedDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Payment"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/payment/{id}": {
+      "get": {
+        "operationId": "PaymentController_getPayment",
+        "summary": "",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReturnPaymentDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Payment"],
+        "security": [{ "bearer": [] }]
+      }
+    },
+    "/payment/confirm": {
+      "post": {
+        "operationId": "PaymentController_confirmPayment",
+        "summary": "",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ConfirmPaymentDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReturnPaymentDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Payment"],
+        "security": [{ "bearer": [] }]
+      }
+    }
+  },
+  "info": {
+    "title": "Nest Payments",
+    "description": "An API for customers and payments with Stripe.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "description": "An http bearer auth token is required for all secured routes. An auth grant can be obtained from `/user/login` and `/user/register`"
+      }
+    },
+    "schemas": {
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "example": "Alan Turing",
+            "description": "The user's name."
+          },
+          "email": {
+            "type": "string",
+            "example": "aturing@gmail.com",
+            "description": "The user's email address."
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "example": "password",
+            "description": "The user's password."
+          }
+        },
+        "required": ["userName", "email", "password"]
+      },
+      "ReturnUserDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "example": "5f9f1c9b9c9c9c9c9c9c9c9c",
+            "description": "The user's id in Mongodb."
+          },
+          "userName": {
+            "type": "string",
+            "example": "Alan Turing",
+            "description": "The user's name."
+          },
+          "email": {
+            "type": "string",
+            "example": "aturing@gmail.com",
+            "description": "The user's email address."
+          },
+          "customerId": {
+            "type": "string",
+            "example": "cus_1234567890",
+            "description": "The user's Stripe customer id. Users without transactions do not have a customer id."
+          }
+        },
+        "required": ["userId", "userName", "email"]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "example": "Alan Turing",
+            "description": "The user's name."
+          },
+          "email": {
+            "type": "string",
+            "example": "aturing@gmail.com",
+            "description": "The user's email address."
+          },
+          "customerId": {
+            "type": "string",
+            "example": "cus_1234567890",
+            "description": "The user's Stripe customer id."
+          }
+        }
+      },
+      "AuthGrantDto": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "The access token."
+          }
+        },
+        "required": ["access_token"]
+      },
+      "LoginUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "aturing@gmail.com",
+            "description": "The user's email address."
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "example": "password",
+            "description": "The user's password."
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "ReturnPaymentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "pi_1H7jg1CZ6F7J6I8jW2Q2c2jG",
+            "description": "Payment Intent ID."
+          },
+          "amount": {
+            "type": "number",
+            "example": 2000,
+            "description": "Amount in cents."
+          },
+          "currency": {
+            "type": "string",
+            "example": "usd",
+            "description": "Currency code. See https://stripe.com/docs/currencies."
+          },
+          "status": {
+            "type": "string",
+            "example": "pending",
+            "description": "Payment Intent status. See https://stripe.com/docs/payments/payment-intents#intent-statuses."
+          },
+          "paymentMethod": {
+            "type": "string",
+            "example": "pm_1H7jg1CZ6F7J6I8jW2Q2c2jG",
+            "description": "Stripe payment method"
+          }
+        },
+        "required": ["id", "amount", "currency", "status", "paymentMethod"]
+      },
+      "CreatePaymentDto": {
+        "type": "object",
+        "properties": {
+          "cuid": {
+            "type": "string",
+            "example": "cjld2cjxh0000qzrmn831i7rn",
+            "description": "CUID (collision resistant id) that identifies the user session. Use https://github.com/paralleldrive/cuid to generate them. This is used as an idempotency key for the payment intent creation. Thus, they should be unique foreach payment intent creation but remain constant between retries."
+          }
+        },
+        "required": ["cuid"]
+      },
+      "PaymentCreatedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "pi_1H7jg1CZ6F7J6I8jW2Q2c2jG",
+            "description": "Payment Intent ID."
+          },
+          "amount": {
+            "type": "number",
+            "example": 2000,
+            "description": "Amount in cents."
+          },
+          "currency": {
+            "type": "string",
+            "example": "usd",
+            "description": "Currency code. See https://stripe.com/docs/currencies."
+          },
+          "status": {
+            "type": "string",
+            "example": "pending",
+            "description": "Payment Intent status. See https://stripe.com/docs/payments/payment-intents#intent-statuses."
+          },
+          "paymentMethod": {
+            "type": "string",
+            "example": "pm_1H7jg1CZ6F7J6I8jW2Q2c2jG",
+            "description": "Stripe payment method"
+          },
+          "clientSecret": {
+            "type": "string",
+            "example": "Jreaw828oaooi3j3r",
+            "description": "Client secret for the payment intent."
+          }
+        },
+        "required": [
+          "id",
+          "amount",
+          "currency",
+          "status",
+          "paymentMethod",
+          "clientSecret"
+        ]
+      },
+      "ConfirmPaymentDto": {
+        "type": "object",
+        "properties": {
+          "cuid": {
+            "type": "string",
+            "example": "cjld2cjxh0000qzrmn831i7rn",
+            "description": "CUID (collision resistant id) that identifies the user session. Use https://github.com/paralleldrive/cuid to generate them. This is used as an idempotency key for the payment intent creation. Thus, they should be unique foreach payment intent creation but remain constant between retries."
+          },
+          "paymentId": {
+            "type": "string",
+            "example": "pi_1H4Q2cKZ4Z4Z4Z4Z4Z4Z4Z4Z",
+            "description": "Payment intent id."
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "example": "pm_1H7jg1CZ6F7J6I8jW2Q2c2jG",
+            "description": "Payment method id."
+          }
+        },
+        "required": ["cuid", "paymentId", "paymentMethodId"]
+      }
+    }
+  }
+}

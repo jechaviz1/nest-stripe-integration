@@ -1,0 +1,1505 @@
+<html><head><meta charset="UTF-8"><title>Nest Payments v1.0</title></head><body><!-- Generator: Widdershins v4.0.1 -->
+<h1 id="nest-payments">Nest Payments v1.0</h1>
+<blockquote>
+<p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
+</blockquote>
+<p>An API for customers and payments with Stripe.</p>
+<p>Base URLs:</p>
+<h1>Authentication</h1>
+<ul>
+<li>HTTP Authentication, scheme: bearer</li>
+</ul>
+<h1 id="nest-payments-user">user</h1>
+<h2>UserController_create</h2>
+<p><a id="opIdUserController_create"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "userName": "Alan Turing",
+  "email": "aturing@gmail.com",
+  "password": "password"
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/user'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>POST /user</code></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"password"</span>
+}
+</code></pre>
+<h3 id="usercontroller_create-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemacreateuserdto">CreateUserDto</a></td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"5f9f1c9b9c9c9c9c9c9c9c9c"</span>,
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"customerId"</span>: <span class="hljs-string">"cus_1234567890"</span>
+}
+</code></pre>
+<h3 id="usercontroller_create-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>none</td>
+<td><a href="#schemareturnuserdto">ReturnUserDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h2>UserController_findAll</h2>
+<p><a id="opIdUserController_findAll"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code>
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/user'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>GET /user</code></p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>[
+  {
+    <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"5f9f1c9b9c9c9c9c9c9c9c9c"</span>,
+    <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+    <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+    <span class="hljs-attr">"customerId"</span>: <span class="hljs-string">"cus_1234567890"</span>
+  }
+]
+</code></pre>
+<h3 id="usercontroller_findall-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>none</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usercontroller_findall-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>[<a href="#schemareturnuserdto">ReturnUserDto</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» userId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s id in Mongodb.</td>
+</tr>
+<tr>
+<td>» userName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s name.</td>
+</tr>
+<tr>
+<td>» email</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s email address.</td>
+</tr>
+<tr>
+<td>» customerId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The user’s Stripe customer id. Users without transactions do not have a customer id.</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h2>UserController_findOne</h2>
+<p><a id="opIdUserController_findOne"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code>
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/user/{id}'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>GET /user/{id}</code></p>
+<h3 id="usercontroller_findone-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"5f9f1c9b9c9c9c9c9c9c9c9c"</span>,
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"customerId"</span>: <span class="hljs-string">"cus_1234567890"</span>
+}
+</code></pre>
+<h3 id="usercontroller_findone-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>none</td>
+<td><a href="#schemareturnuserdto">ReturnUserDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h2>UserController_update</h2>
+<p><a id="opIdUserController_update"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "userName": "Alan Turing",
+  "email": "aturing@gmail.com",
+  "customerId": "cus_1234567890"
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/user/{id}'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'PATCH'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>PATCH /user/{id}</code></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"customerId"</span>: <span class="hljs-string">"cus_1234567890"</span>
+}
+</code></pre>
+<h3 id="usercontroller_update-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaupdateuserdto">UpdateUserDto</a></td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"5f9f1c9b9c9c9c9c9c9c9c9c"</span>,
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"customerId"</span>: <span class="hljs-string">"cus_1234567890"</span>
+}
+</code></pre>
+<h3 id="usercontroller_update-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>none</td>
+<td><a href="#schemareturnuserdto">ReturnUserDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h2>UserController_remove</h2>
+<p><a id="opIdUserController_remove"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code>
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/user/{id}'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'DELETE'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>DELETE /user/{id}</code></p>
+<h3 id="usercontroller_remove-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"5f9f1c9b9c9c9c9c9c9c9c9c"</span>,
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"customerId"</span>: <span class="hljs-string">"cus_1234567890"</span>
+}
+</code></pre>
+<h3 id="usercontroller_remove-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>none</td>
+<td><a href="#schemareturnuserdto">ReturnUserDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h2>UserController_register</h2>
+<p><a id="opIdUserController_register"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "userName": "Alan Turing",
+  "email": "aturing@gmail.com",
+  "password": "password"
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>
+};
+
+fetch(<span class="hljs-string">'/user/register'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>POST /user/register</code></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"password"</span>
+}
+</code></pre>
+<h3 id="usercontroller_register-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemacreateuserdto">CreateUserDto</a></td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"access_token"</span>: <span class="hljs-string">"string"</span>
+}
+</code></pre>
+<h3 id="usercontroller_register-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>none</td>
+<td><a href="#schemaauthgrantdto">AuthGrantDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2>UserController_login</h2>
+<p><a id="opIdUserController_login"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "email": "aturing@gmail.com",
+  "password": "password"
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>
+};
+
+fetch(<span class="hljs-string">'/user/login'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>POST /user/login</code></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"password"</span>
+}
+</code></pre>
+<h3 id="usercontroller_login-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaloginuserdto">LoginUserDto</a></td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"access_token"</span>: <span class="hljs-string">"string"</span>
+}
+</code></pre>
+<h3 id="usercontroller_login-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>none</td>
+<td><a href="#schemaauthgrantdto">AuthGrantDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h1 id="nest-payments-payment">payment</h1>
+<h2>PaymentController_getPayments</h2>
+<p><a id="opIdPaymentController_getPayments"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code>
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/payment'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>GET /payment</code></p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>[
+  {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"pi_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>,
+    <span class="hljs-attr">"amount"</span>: <span class="hljs-number">2000</span>,
+    <span class="hljs-attr">"currency"</span>: <span class="hljs-string">"usd"</span>,
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>,
+    <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>
+  }
+]
+</code></pre>
+<h3 id="paymentcontroller_getpayments-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>none</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="paymentcontroller_getpayments-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>[<a href="#schemareturnpaymentdto">ReturnPaymentDto</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» id</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Payment Intent ID.</td>
+</tr>
+<tr>
+<td>» amount</td>
+<td>number</td>
+<td>true</td>
+<td>none</td>
+<td>Amount in cents.</td>
+</tr>
+<tr>
+<td>» currency</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Currency code. See <a href="https://stripe.com/docs/currencies">https://stripe.com/docs/currencies</a>.</td>
+</tr>
+<tr>
+<td>» status</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Payment Intent status. See <a href="https://stripe.com/docs/payments/payment-intents#intent-statuses">https://stripe.com/docs/payments/payment-intents#intent-statuses</a>.</td>
+</tr>
+<tr>
+<td>» paymentMethod</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Stripe payment method</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h2>PaymentController_createPayment</h2>
+<p><a id="opIdPaymentController_createPayment"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "cuid": "cjld2cjxh0000qzrmn831i7rn"
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/payment'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>POST /payment</code></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"cuid"</span>: <span class="hljs-string">"cjld2cjxh0000qzrmn831i7rn"</span>
+}
+</code></pre>
+<h3 id="paymentcontroller_createpayment-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemacreatepaymentdto">CreatePaymentDto</a></td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"pi_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>,
+  <span class="hljs-attr">"amount"</span>: <span class="hljs-number">2000</span>,
+  <span class="hljs-attr">"currency"</span>: <span class="hljs-string">"usd"</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>,
+  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>,
+  <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"Jreaw828oaooi3j3r"</span>
+}
+</code></pre>
+<h3 id="paymentcontroller_createpayment-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>none</td>
+<td><a href="#schemapaymentcreateddto">PaymentCreatedDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h2>PaymentController_getPayment</h2>
+<p><a id="opIdPaymentController_getPayment"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code>
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/payment/{id}'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>GET /payment/{id}</code></p>
+<h3 id="paymentcontroller_getpayment-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"pi_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>,
+  <span class="hljs-attr">"amount"</span>: <span class="hljs-number">2000</span>,
+  <span class="hljs-attr">"currency"</span>: <span class="hljs-string">"usd"</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>,
+  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>
+}
+</code></pre>
+<h3 id="paymentcontroller_getpayment-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>none</td>
+<td><a href="#schemareturnpaymentdto">ReturnPaymentDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h2>PaymentController_confirmPayment</h2>
+<p><a id="opIdPaymentController_confirmPayment"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="nohighlight example"><code><span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "cuid": "cjld2cjxh0000qzrmn831i7rn",
+  "paymentId": "pi_1H4Q2cKZ4Z4Z4Z4Z4Z4Z4Z4Z",
+  "paymentMethodId": "pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'Bearer {access-token}'</span>
+};
+
+fetch(<span class="hljs-string">'/payment/confirm'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<p><code>POST /payment/confirm</code></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"cuid"</span>: <span class="hljs-string">"cjld2cjxh0000qzrmn831i7rn"</span>,
+  <span class="hljs-attr">"paymentId"</span>: <span class="hljs-string">"pi_1H4Q2cKZ4Z4Z4Z4Z4Z4Z4Z4Z"</span>,
+  <span class="hljs-attr">"paymentMethodId"</span>: <span class="hljs-string">"pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>
+}
+</code></pre>
+<h3 id="paymentcontroller_confirmpayment-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaconfirmpaymentdto">ConfirmPaymentDto</a></td>
+<td>true</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"pi_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>,
+  <span class="hljs-attr">"amount"</span>: <span class="hljs-number">2000</span>,
+  <span class="hljs-attr">"currency"</span>: <span class="hljs-string">"usd"</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>,
+  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>
+}
+</code></pre>
+<h3 id="paymentcontroller_confirmpayment-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>none</td>
+<td><a href="#schemareturnpaymentdto">ReturnPaymentDto</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearer
+</aside>
+<h1>Schemas</h1>
+<h2 id="tocS_CreateUserDto">CreateUserDto</h2>
+<!-- backwards compatibility -->
+<a id="schemacreateuserdto"></a>
+<a id="schema_CreateUserDto"></a>
+<a id="tocScreateuserdto"></a>
+<a id="tocscreateuserdto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"password"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s name.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s email address.</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s password.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_ReturnUserDto">ReturnUserDto</h2>
+<!-- backwards compatibility -->
+<a id="schemareturnuserdto"></a>
+<a id="schema_ReturnUserDto"></a>
+<a id="tocSreturnuserdto"></a>
+<a id="tocsreturnuserdto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"5f9f1c9b9c9c9c9c9c9c9c9c"</span>,
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"customerId"</span>: <span class="hljs-string">"cus_1234567890"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s id in Mongodb.</td>
+</tr>
+<tr>
+<td>userName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s name.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s email address.</td>
+</tr>
+<tr>
+<td>customerId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The user’s Stripe customer id. Users without transactions do not have a customer id.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_UpdateUserDto">UpdateUserDto</h2>
+<!-- backwards compatibility -->
+<a id="schemaupdateuserdto"></a>
+<a id="schema_UpdateUserDto"></a>
+<a id="tocSupdateuserdto"></a>
+<a id="tocsupdateuserdto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"userName"</span>: <span class="hljs-string">"Alan Turing"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"customerId"</span>: <span class="hljs-string">"cus_1234567890"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userName</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The user’s name.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The user’s email address.</td>
+</tr>
+<tr>
+<td>customerId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The user’s Stripe customer id.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_AuthGrantDto">AuthGrantDto</h2>
+<!-- backwards compatibility -->
+<a id="schemaauthgrantdto"></a>
+<a id="schema_AuthGrantDto"></a>
+<a id="tocSauthgrantdto"></a>
+<a id="tocsauthgrantdto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"access_token"</span>: <span class="hljs-string">"string"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The access token.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_LoginUserDto">LoginUserDto</h2>
+<!-- backwards compatibility -->
+<a id="schemaloginuserdto"></a>
+<a id="schema_LoginUserDto"></a>
+<a id="tocSloginuserdto"></a>
+<a id="tocsloginuserdto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"aturing@gmail.com"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"password"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s email address.</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The user’s password.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_ReturnPaymentDto">ReturnPaymentDto</h2>
+<!-- backwards compatibility -->
+<a id="schemareturnpaymentdto"></a>
+<a id="schema_ReturnPaymentDto"></a>
+<a id="tocSreturnpaymentdto"></a>
+<a id="tocsreturnpaymentdto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"pi_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>,
+  <span class="hljs-attr">"amount"</span>: <span class="hljs-number">2000</span>,
+  <span class="hljs-attr">"currency"</span>: <span class="hljs-string">"usd"</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>,
+  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Payment Intent ID.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>true</td>
+<td>none</td>
+<td>Amount in cents.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Currency code. See <a href="https://stripe.com/docs/currencies">https://stripe.com/docs/currencies</a>.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Payment Intent status. See <a href="https://stripe.com/docs/payments/payment-intents#intent-statuses">https://stripe.com/docs/payments/payment-intents#intent-statuses</a>.</td>
+</tr>
+<tr>
+<td>paymentMethod</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Stripe payment method</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_CreatePaymentDto">CreatePaymentDto</h2>
+<!-- backwards compatibility -->
+<a id="schemacreatepaymentdto"></a>
+<a id="schema_CreatePaymentDto"></a>
+<a id="tocScreatepaymentdto"></a>
+<a id="tocscreatepaymentdto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"cuid"</span>: <span class="hljs-string">"cjld2cjxh0000qzrmn831i7rn"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cuid</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>CUID (collision resistant id) that identifies the user session. Use <a href="https://github.com/paralleldrive/cuid">https://github.com/paralleldrive/cuid</a> to generate them. This is used as an idempotency key for the payment intent creation. Thus, they should be unique foreach payment intent creation but remain constant between retries.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_PaymentCreatedDto">PaymentCreatedDto</h2>
+<!-- backwards compatibility -->
+<a id="schemapaymentcreateddto"></a>
+<a id="schema_PaymentCreatedDto"></a>
+<a id="tocSpaymentcreateddto"></a>
+<a id="tocspaymentcreateddto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"pi_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>,
+  <span class="hljs-attr">"amount"</span>: <span class="hljs-number">2000</span>,
+  <span class="hljs-attr">"currency"</span>: <span class="hljs-string">"usd"</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>,
+  <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>,
+  <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"Jreaw828oaooi3j3r"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Payment Intent ID.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>true</td>
+<td>none</td>
+<td>Amount in cents.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Currency code. See <a href="https://stripe.com/docs/currencies">https://stripe.com/docs/currencies</a>.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Payment Intent status. See <a href="https://stripe.com/docs/payments/payment-intents#intent-statuses">https://stripe.com/docs/payments/payment-intents#intent-statuses</a>.</td>
+</tr>
+<tr>
+<td>paymentMethod</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Stripe payment method</td>
+</tr>
+<tr>
+<td>clientSecret</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Client secret for the payment intent.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_ConfirmPaymentDto">ConfirmPaymentDto</h2>
+<!-- backwards compatibility -->
+<a id="schemaconfirmpaymentdto"></a>
+<a id="schema_ConfirmPaymentDto"></a>
+<a id="tocSconfirmpaymentdto"></a>
+<a id="tocsconfirmpaymentdto"></a>
+<pre class="nohighlight example"><code>{
+  <span class="hljs-attr">"cuid"</span>: <span class="hljs-string">"cjld2cjxh0000qzrmn831i7rn"</span>,
+  <span class="hljs-attr">"paymentId"</span>: <span class="hljs-string">"pi_1H4Q2cKZ4Z4Z4Z4Z4Z4Z4Z4Z"</span>,
+  <span class="hljs-attr">"paymentMethodId"</span>: <span class="hljs-string">"pm_1H7jg1CZ6F7J6I8jW2Q2c2jG"</span>
+}
+
+</code></pre>
+<h3>Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cuid</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>CUID (collision resistant id) that identifies the user session. Use <a href="https://github.com/paralleldrive/cuid">https://github.com/paralleldrive/cuid</a> to generate them. This is used as an idempotency key for the payment intent creation. Thus, they should be unique foreach payment intent creation but remain constant between retries.</td>
+</tr>
+<tr>
+<td>paymentId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Payment intent id.</td>
+</tr>
+<tr>
+<td>paymentMethodId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Payment method id.</td>
+</tr>
+</tbody>
+</table>

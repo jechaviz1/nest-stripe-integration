@@ -21,7 +21,7 @@ import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
-@ApiTags('user')
+@ApiTags('User')
 export class UserController {
   constructor(
     private readonly userService: UserService,
@@ -31,7 +31,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<ReturnUserDto> {
+  async create(@Body() createUserDto: CreateUserDto) {
     const createdUser = await this.userService.create(createUserDto);
 
     return new ReturnUserDto(createdUser);
