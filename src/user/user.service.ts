@@ -26,7 +26,7 @@ export class UserService {
     );
 
     const createdUser = await this.userModel.create({
-      userName: createUserDto.userName,
+      user_name: createUserDto.userName,
       email: createUserDto.email,
       hash,
       salt,
@@ -61,15 +61,23 @@ export class UserService {
       checks.push(this.assertUniqueEmail(updateUserDto.email));
     }
 
-    if (existingUser.userName !== updateUserDto.userName) {
+    if (existingUser.user_name !== updateUserDto.userName) {
       checks.push(this.assertUniqueUsername(updateUserDto.userName));
     }
 
     await Promise.all(checks);
 
-    return this.userModel.findByIdAndUpdate(_id, updateUserDto, {
-      new: true,
-    });
+    return this.userModel.findByIdAndUpdate(
+      _id,
+      {
+        user_name: updateUserDto.userName,
+        customer_id: updateUserDto.customerId,
+        email: updateUserDto.email,
+      },
+      {
+        new: true,
+      },
+    );
   }
 
   async remove(_id: string): Promise<UserDocument> {
@@ -84,8 +92,8 @@ export class UserService {
     }
   }
 
-  async assertUniqueUsername(userName: string): Promise<void> {
-    const user = await this.userModel.findOne({ userName });
+  async assertUniqueUsername(user_name: string): Promise<void> {
+    const user = await this.userModel.findOne({ user_name });
 
     if (user) {
       throw new ConflictException('Username already exists.');

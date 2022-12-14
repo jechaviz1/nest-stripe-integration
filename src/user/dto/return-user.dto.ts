@@ -26,12 +26,12 @@ export class ReturnUserDto {
       `The user's Stripe customer id. Users without transactions ` +
       `do not have a customer id.`,
   })
-  customerId: string | null;
+  customerId?: string;
 
   constructor(user: UserDocument) {
     this.userId = user._id.toString();
-    this.userName = user.userName;
+    this.userName = user.user_name;
     this.email = user.email;
-    this.customerId = user.customerId || null;
+    this.customerId = user.customer_id || null;
   }
 }

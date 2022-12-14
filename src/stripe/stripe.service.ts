@@ -21,9 +21,6 @@ export class StripeService {
       customer: customerId,
       amount: paymentConfig.amount,
       currency: paymentConfig.currency,
-      automatic_payment_methods: {
-        enabled: true,
-      },
     });
   }
 

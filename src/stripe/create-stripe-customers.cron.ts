@@ -14,21 +14,18 @@ export class CreateStripeCustomersCron {
 
   @Cron(CronExpression.EVERY_30_SECONDS)
   async handleCron() {
-    const users = await this.userModel.find(
-      { customerId: null },
-      {
-        limit: 10,
-      },
-    );
+    const users = await this.userModel.find({ customer_id: null }, null, {
+      limit: 10,
+    });
 
     await Promise.all(
       users.map(async (user) => {
         const customer = await this.stripeService
-          .createCustomer(user.email, user.userName)
+          .createCustomer(user.email, user.user_name)
           .catch(() => null);
 
         await this.userModel
-          .updateOne({ _id: user._id }, { customerId: customer.id })
+          .updateOne({ _id: user._id }, { customer_id: customer.id })
           .catch((err) => {
             console.log(
               `Error adding customerId ${customer.id} to user ${user._id}`,

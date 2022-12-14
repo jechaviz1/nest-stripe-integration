@@ -15,8 +15,8 @@ import { StripeService } from '../stripe/stripe.service';
 export class PaymentService {
   constructor(
     @InjectModel(Payment.name)
-    private readonly paymentModel: Model<PaymentDocument>,
-    private readonly stripeService: StripeService,
+    readonly paymentModel: Model<PaymentDocument>,
+    readonly stripeService: StripeService,
   ) {}
 
   async createPayment(user: ReturnUserDto, createPaymentDto: CreatePaymentDto) {
@@ -29,7 +29,7 @@ export class PaymentService {
     );
 
     await this.paymentModel.create({
-      id: stripePayment.id,
+      payment_intent_id: stripePayment.id,
       amount: stripePayment.amount,
       currency: stripePayment.currency,
       cuid: createPaymentDto.cuid,
@@ -54,7 +54,7 @@ export class PaymentService {
     );
 
     await this.paymentModel.findOneAndUpdate(
-      { id: payment.id },
+      { payment_intent_id: payment.id },
       { status: payment.status },
     );
 
@@ -88,7 +88,7 @@ export class PaymentService {
 
   async assertUserOwnsPayment(user: ReturnUserDto, paymentId: string) {
     const payment = await this.paymentModel.findOne({
-      _id: paymentId,
+      payment_intent_id: paymentId,
       user_id: user.userId,
     });
 

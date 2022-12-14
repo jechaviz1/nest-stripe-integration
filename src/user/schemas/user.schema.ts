@@ -8,7 +8,7 @@ export class User {
   @Prop({
     required: true,
   })
-  userName: string;
+  user_name: string;
 
   @Prop({
     required: true,
@@ -26,7 +26,7 @@ export class User {
   salt: string;
 
   @Prop()
-  customerId: string;
+  customer_id: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

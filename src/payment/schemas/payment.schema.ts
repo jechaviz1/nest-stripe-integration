@@ -9,7 +9,7 @@ export class Payment {
     required: true,
     index: true,
   })
-  id: string;
+  payment_intent_id: string;
 
   @Prop({
     required: true,

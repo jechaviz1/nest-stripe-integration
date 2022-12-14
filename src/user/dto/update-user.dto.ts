@@ -7,18 +7,18 @@ export class UpdateUserDto {
     description: `The user's name.`,
   })
   @IsNotEmpty()
-  readonly userName: string;
+  readonly userName?: string;
 
   @ApiProperty({
     example: 'aturing@gmail.com',
     description: `The user's email address.`,
   })
   @IsEmail()
-  readonly email: string;
+  readonly email?: string;
 
   @ApiProperty({
     example: 'cus_1234567890',
     description: `The user's Stripe customer id.`,
   })
-  readonly customerId: string;
+  readonly customerId?: string;
 }
